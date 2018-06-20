@@ -2,7 +2,7 @@
 
 <h1>Editing Movie #<%= movie.id %></h1>
 
-<form action="/movies/#{movie.id}" class='col-sm-5'>
+<form action="/movies/<%= movie.id %>/update" class='col-sm-5'>
 
   <p class="form-group">Title: <input class="form-control" value="<%= movie.title %>" type="text" name="title" placeholder="Enter a title..."></p>
   <p class="form-group">Year: <input class="form-control" value="<%= movie.year %>" type="text" name="year" placeholder="Enter a year..."></p>

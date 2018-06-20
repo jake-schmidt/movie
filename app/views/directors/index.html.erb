@@ -1,0 +1,14 @@
+<div class="row justify-content-left">
+
+    <% for director in Director.all.order("name asc") %>
+
+      <div class="col-sm-3 m-4">
+
+        <a href="/directors/<%= director.id %>">
+        <%= director.name %>
+          
+      </div>
+
+    <% end %>
+
+</div>

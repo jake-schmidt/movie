@@ -1,0 +1,45 @@
+<% director_id = params[:id] %>
+<% director = Director.find_by(id: director_id) %>
+
+<div class="row">
+
+  <div class="col-sm-6">
+    <h2>
+      <%= director.name %>
+    </h2>
+  </div>
+
+  <div class="col-sm-6">
+    <a href="/directors/<%= director.id %>/delete" class="float-right">
+      <i class="fas fa-trash"></i>
+      Delete
+    </a>
+    <a href="/directors/<%= director.id %>/edit" class="pr-5 float-right">
+      <i class="fas fa-pen-square"></i>
+      Edit This Director
+    </a>
+  </div>
+
+</div>
+
+<div class="row">
+
+<% filmography = Movie.where(director_id: director_id) %>
+
+<% for movie in filmography %>
+
+  <div class="col-sm-3">
+
+  <a href="/movies/<%= movie.id %>"><%= movie.title %></a>
+
+  <% if movie.poster_url.blank? %>
+    <% movie.poster_url = "/blank_poster.png" %>
+  <% end %>
+
+  <img src="<%= movie.poster_url %>" class="movie-poster img-fluid">
+
+  </div>
+
+<% end %>
+  
+</div>

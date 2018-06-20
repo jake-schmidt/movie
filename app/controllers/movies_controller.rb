@@ -1,7 +1,8 @@
 class MoviesController < ApplicationController
 
   def destroy
-    Movie.delete(0)
+    m = Movie.find_by(id: params["id"])
+    m.delete
     redirect_to "/movies"
   end
 

@@ -9,7 +9,9 @@ class DirectorsController < ApplicationController
   end
 
   def destroy
-
+    d = Director.find_by(id: params["id"])
+    d.delete
+    redirect_to "/directors"
   end
 
   def new
@@ -17,7 +19,9 @@ class DirectorsController < ApplicationController
   end
 
   def create
+    d = Director.create name: params["name"]
 
+    redirect_to "/directors"
   end
 
   def edit
@@ -25,7 +29,11 @@ class DirectorsController < ApplicationController
   end
 
   def update
+    d = Director.find_by(id: params["id"])
 
+    d.update name: params["name"]
+
+    redirect_to "/directors/#{d.id}"
   end
 
 end

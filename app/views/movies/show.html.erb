@@ -1,11 +1,11 @@
 <% movie_id = params[:id] %>
-<% movie = Movie.find_by(id: movie_id) %>
+<% thisMovie = Movie.find_by(id: movie_id) %>
 
 <div class="row">
 
   <div class="col-sm-6">
     <h2>
-      <%= movie.title %>
+      <%= thisMovie.title %>
     </h2>
   </div>
 
@@ -14,21 +14,21 @@
 <div class="row">
 
   <div class="col-sm-3">
-    <img src="<%= movie.poster_url %>" class="img-fluid">
+    <img src="<%= thisMovie.poster_url %>" class="img-fluid">
 
   </div>
 
   <div class="col-sm-6">
-    <a href="/movies/<%= movie.id %>/delete" class="float-right">
+    <a href="/movies/<%= thisMovie.id %>/delete" class="float-right">
       <i class="fas fa-trash"></i>
       Delete
     </a>
-    <a href="/movies/<%= movie.id %>/edit" class="pr-5 float-right">
+    <a href="/movies/<%= thisMovie.id %>/edit" class="pr-5 float-right">
       <i class="fas fa-pen-square"></i>
       Edit This Movie
     </a>
 
-    <% director = Director.find_by(id: movie.director_id) %>
+    <% director = Director.find_by(id: thisMovie.director_id) %>
     <% if director != nil %>
       <p>
         Directed by <%= director.name %>
@@ -36,7 +36,43 @@
     <% end %>
 
     <p class="lead">
-      <strong><%= movie.plot %></strong>
+      <strong><%= thisMovie.plot %></strong>
     </p>
   </div>
+</div>
+
+<br>
+<div class="row">
+  <div class="col-sm-6">
+    <p>Other films by this director:</p>
+  </div>
+</div>
+
+<div class="row">  
+    
+    <% filmography = Movie.where(director_id: thisMovie.director_id) %>
+    
+    <% if filmography.count>1 then %>
+    
+      <% for movie in filmography %>
+      
+        <% if movie.id == thisMovie.id then next movie %>
+        <% else %>
+      
+        <div class="col-sm-3">
+          <a href="/movies/<%= movie.id %>"><%= movie.title %></a>
+        </div>
+        
+        <% end %>
+      
+      <% end %>
+      
+    <% else %>
+    
+      <div class="col">
+        <p>No other movies in the database currently for this director. Click "Add Movie" to add one!</p>
+      </div>
+    
+    <% end %>
+
 </div>
